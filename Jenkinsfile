@@ -1,24 +1,14 @@
 pipeline {
     agent any
     stages {
+        stage('clone the git'){
+            steps{
+                git 'https://github.com/Sekhar295/simple-java-maven-app.git'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn clean package'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
-        }
-        stage('Deliver') {
-            steps {
-                sh 'echo "Deploy code"'
             }
         }
     }
